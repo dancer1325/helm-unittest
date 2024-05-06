@@ -271,23 +271,7 @@ Note 2: using the folder structure in templates can also be used to unittest tem
 Check [`test/data/v3/with-subchart/`](./test/data/v3/with-subchart) as an example.
 
 ## Tests within subchart
-
-If you have customized subchart (not installed via `helm dependency`) existed in `charts` directory, tests inside would also be executed by default. You can disable this behavior by setting `--with-subchart=false` flag in cli, thus only the tests in root chart will be executed. Notice that the values defined in subchart tests will be automatically scoped, you don't have to add dependency scope yourself:
-
-```yaml
-# with-subchart/charts/child-chart/tests/xxx_test.yaml
-templates:
-  - templates/xxx.yaml
-tests:
-  - it:
-    set:
-      # no need to prefix with "child-chart."
-      somevalue: should_be_scoped
-    asserts:
-      - ...
-```
-
-Check [`test/data/v3/with-subchart/`](./test/data/v3/with-subchart) as an example.
+* Check [`test/data/v3/with-subchart/`](./test/data/v3/with-subchart) as an example.
 
 ## Test Suite code completion and validation
 
