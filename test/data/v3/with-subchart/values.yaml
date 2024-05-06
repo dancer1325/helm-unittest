@@ -41,5 +41,6 @@ resources: {}
 postgresql:
   enabled: true
 
+#     Use chart dependency alias to refer to it
 another-postgresql:
   enabled: true

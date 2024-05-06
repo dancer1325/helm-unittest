@@ -248,29 +248,10 @@ $ helm unittest -u my-chart
 
 The cache files is stored as `__snapshot__/*_test.yaml.snap` at the directory your test file placed, you should add them in version control with your chart.
 
-## Dependent subchart Testing
+## Hard subchart Testing
+* Check [`test/data/v3/with-subchart/`](./test/data/v3/with-subchart) as an example.
 
-If you have dependent subcharts (installed via `helm dependency`) existed in `charts` directory (they don't need to be extracted), it is possible to unittest these from the root chart. This feature can be helpful to validate if good default values are accidentally overwritten within your default helm chart.
-
-```yaml
-# $YOUR_CHART/tests/xxx_test.yaml
-templates:
-  - charts/postgresql/templates/xxx.yaml
-tests:
-  - it:
-    set:
-      # this time required to prefix with "postgresql."
-      postgresql.somevalue: should_be_scoped
-    asserts:
-      - ...
-```
-
-Note 1: if dependent subcharts uses an alias, use the alias name in the templates.
-Note 2: using the folder structure in templates can also be used to unittest templates which are placed in subfolders or unittest subcharts from the rootchart.
-
-Check [`test/data/v3/with-subchart/`](./test/data/v3/with-subchart) as an example.
-
-## Tests within subchart
+## Soft Subchart Testing
 * Check [`test/data/v3/with-subchart/`](./test/data/v3/with-subchart) as an example.
 
 ## Test Suite code completion and validation
