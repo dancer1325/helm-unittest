@@ -5,7 +5,7 @@ tests:
   - it: should NOT configure ssl params if NOT set to be exposed
     asserts:
       - notMatchRegex:
-          path: data["my.conf"]
+          path: data["my.conf"]   # data is an object, but data["my.conf"] is a string
           pattern: cacertfile
       - contains:
           path: data["my.array"]
