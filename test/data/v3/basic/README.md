@@ -9,3 +9,4 @@
 * "/tests/deployment_test.yaml"
   * asserts used are
     * `isSubset`
+    * `lengthEqual`

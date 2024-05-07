@@ -71,3 +71,12 @@ tests:
             name: RELEASE-NAME-basic
             annotations:
               checksum/health: 9012f814d2940de7507dff06c689876852e6eb84d43648af7a36c29184e7e141
+      - lengthEqual:
+          # set of paths
+          paths:
+            - spec.template.spec.containers
+            - spec.template.spec.containers[0].ports
+          count: 1
+      - lengthEqual:
+          count: 1
+          path: spec.template.spec.containers
