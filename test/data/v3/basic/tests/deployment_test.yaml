@@ -61,3 +61,13 @@ tests:
           count: 2
       - matchSnapshot:
           path: spec
+      - isSubset:
+          path: metadata
+          content:
+            name: RELEASE-NAME-basic
+      - isSubset:
+          path: metadata
+          content:
+            name: RELEASE-NAME-basic
+            annotations:
+              checksum/health: 9012f814d2940de7507dff06c689876852e6eb84d43648af7a36c29184e7e141

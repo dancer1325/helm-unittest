@@ -6,3 +6,6 @@
   * asserts used are
     * `contains`
     * `notMatchRegex`
+* "/tests/deployment_test.yaml"
+  * asserts used are
+    * `isSubset`
