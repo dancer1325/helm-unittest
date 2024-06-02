@@ -36,5 +36,7 @@ resources: {}
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
+label:
+  another: alfred
 
 # expose: true    -- uncomment to test other outputs --

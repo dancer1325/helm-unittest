@@ -14,7 +14,9 @@
     * `lengthEqual`
   * `testSuite.set`
     * passed
-    * takes precedence vs `testSuite.values` 
+    * takes precedence vs `testSuite.values`
+  * `testSuite.values`
+    * if you add several ons -> last ones take precedence
 * "tests/ingress_test.yaml"
   * YAML / JSONPath support
 * test suite completion and validation

@@ -6,6 +6,7 @@ set:
     pullPolicy: Always
 values:
   - ./values/image.yaml
+  - ./values/labels.yaml
 templates:
   - templates/configmap.yaml
   - templates/deployment.yaml
@@ -85,4 +86,6 @@ tests:
       - equal:
           path: spec.template.spec.containers[?(@.name == "basic")].imagePullPolicy
           value: Always
-
+      - equal:
+          path: metadata.labels.another
+          value: rosi
