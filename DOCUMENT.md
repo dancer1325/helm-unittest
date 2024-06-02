@@ -71,7 +71,7 @@ tests:
   - Template files to test in this suite
     - although full chart will be rendered 
     - Partial templates ( == prefixed with and `_` or have the .tpl extension) are added automatically
-      - even if it is in a templates sub-folder
+      - even if it is in a templates sub-folder -- TODO: How to check ? --
 
 - **release**:
   - *object*  
