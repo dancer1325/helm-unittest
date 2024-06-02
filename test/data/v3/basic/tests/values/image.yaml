@@ -1,4 +1,4 @@
 image:
   repository: apache
   tag: latest
-  pullPolicy: Always
+  pullPolicy: IfNotPresent

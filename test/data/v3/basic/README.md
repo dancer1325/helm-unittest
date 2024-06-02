@@ -12,6 +12,9 @@
   * asserts used are
     * `isSubset`
     * `lengthEqual`
+  * `testSuite.set`
+    * passed
+    * takes precedence vs `testSuite.values` 
 * "tests/ingress_test.yaml"
   * YAML / JSONPath support
 * test suite completion and validation

@@ -4,6 +4,8 @@ set:
     repository: apache
     tag: latest
     pullPolicy: Always
+values:
+  - ./values/image.yaml
 templates:
   - templates/configmap.yaml
   - templates/deployment.yaml
@@ -80,3 +82,7 @@ tests:
       - lengthEqual:
           count: 1
           path: spec.template.spec.containers
+      - equal:
+          path: spec.template.spec.containers[?(@.name == "basic")].imagePullPolicy
+          value: Always
+
