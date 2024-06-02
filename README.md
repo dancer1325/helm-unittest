@@ -9,10 +9,9 @@ Unit test for _helm chart_ in YAML to keep your chart consistent and robust!
 Feature:
 
 - write test file in pure YAML
-- render locally
-- create **nothing** on your cluster
-- [wildcard selection for templates](./DOCUMENT.md#test-suite)
-- [define values and release options](./DOCUMENT.md#test-job)
+- **NOTHING** created /installed on your cluster
+- [test suite](./DOCUMENT.md#test-suite)
+- [test job](./DOCUMENT.md#test-job)
 - [snapshot testing](#snapshot-testing)
 - [test suite code completion and validation](#test-suite-code-completion-and-validation)
 
