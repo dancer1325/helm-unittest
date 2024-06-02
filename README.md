@@ -30,8 +30,8 @@ If you are ready for writing tests, check the [DOCUMENT](./DOCUMENT.md) for the 
   - [DocumentSelector](#documentselector)
 - [Example](#example)
 - [Snapshot Testing](#snapshot-testing)
-- [Dependent subchart Testing](#dependent-subchart-testing)
-- [Tests within subchart](#tests-within-subchart)
+- [Hard / Dependent subchart Testing](#dependent-subchart-testing)
+- [Soft / Tests within subchart](#tests-within-subchart)
 - [Test suite code completion and validation](#test-suite-code-completion-and-validation)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [Related Projects / Commands](#related-projects--commands)
@@ -231,8 +231,15 @@ tests:
 
 ## Snapshot Testing
 
-Sometimes you may just want to keep the rendered manifest not changed between changes without every details asserted. That's the reason for snapshot testing! Check the tests below:
-
+* allows
+  * storing the rendered manifests
+    * cache files are stored as `__snapshot__/*_test.yaml.snap`
+    * recommended to push to version control with your chart -- [Example](https://github.com/prometheus-community/helm-charts/tree/main/charts/alertmanager/unittests/__snapshot__) --
+  * validating the current content rendered vs cached last time
+* `matchSnapshot`
+  * if it fails == content changed -> you should
+    * check and
+    * update the cache -- `helm unittest -u ...` / `helm unittest --update-snapshot ...` -- 
 ```yaml
 templates:
   - templates/deployment.yaml
@@ -247,13 +254,6 @@ tests:
       - matchSnapshot: {}
 ```
 
-The `matchSnapshot` assertion validate the content rendered the same as cached last time. It fails if the content changed, and you should check and update the cache with `-u, --update-snapshot` option of cli.
-
-```
-$ helm unittest -u my-chart
-```
-
-The cache files is stored as `__snapshot__/*_test.yaml.snap` at the directory your test file placed, you should add them in version control with your chart.
 
 ## Hard subchart Testing
 * Check [`test/data/v3/with-subchart/`](./test/data/v3/with-subchart) as an example.
