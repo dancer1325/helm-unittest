@@ -15,3 +15,14 @@ tests:
           path: data["special.array"]
           content: phony-service.phony:graphql
           count: 1
+      - equal:
+          path: data
+          value:
+            my.conf: |
+              abc                   = qqq
+              qqq                   = abc
+            my.array:
+              - value1
+              - value2
+            special.array:
+              - phony-service.phony:graphql
