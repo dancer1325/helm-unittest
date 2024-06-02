@@ -64,11 +64,13 @@ docker run -ti --rm -v $(pwd):/apps helmunittest/helm-unittest:3.11.1-0.3.0 .
 docker run -ti --rm -v $(pwd):/apps helmunittest/helm-unittest:3.11.1-0.3.0 -o test-output.xml -t junit .
 ```
 
-The docker container contains the fully installed helm client, including the helm-unittest plugin.
+* Docker container with
+  * fully installed helm client + helm-unittest
 
 ## Get Started
-
-Add `tests` in `.helmignore` of your chart, and create the following test file at `$YOUR_CHART/tests/deployment_test.yaml`:
+* Test file folder must be included in `.helmignore` of your chart!!!
+  * _Example:_ [prometheusChart](https://github.com/prometheus-community/helm-charts/blob/main/charts/alertmanager/.helmignore#L25)
+* Add your first test file at `$YOUR_CHART/tests/deployment_test.yaml`:
 
 ```yaml
 suite: test deployment
@@ -95,26 +97,33 @@ and run:
 $ helm unittest $YOUR_CHART
 ```
 
-Now there is your first test! ;)
 
 ## Test Suite File
 
-The test suite file is written in pure YAML, and default placed under the `tests/` directory of the chart with suffix `_test.yaml`. You can also have your own suite files arrangement with `-f, --file` option of cli set as the glob patterns of test suite files related to chart directory, like:
+* Pure YAML /
+  * `tests/` is the default place
+  * `_test.yaml` suffix
+  * `-f pathToTheTests` /  `--file pathToTheTests` to specify nonDefault paths and names
 
-```bash
-$ helm unittest -f 'my-tests/*.yaml' -f 'more-tests/**/*.yaml' my-chart
-```
-
-Check [DOCUMENT](./DOCUMENT.md) for more details about writing tests.
+    ```bash
+    $ helm unittest -f 'my-tests/*.yaml' -f 'more-tests/**/*.yaml' my-chart
+    ```
+* Check [DOCUMENT](./DOCUMENT.md)
 
 ### Templated Test Suites
 
-You may find yourself needing to set up a lots o tests that are a parameterization of a single test. For instance, let's say that you deploy to 3 environments `env = dev | staging | prod`.
-
-In order to do this, you can actually write your tests as a helm chart as well. If you go about this route, you
-must set the `--chart-tests-path` option. Once you have done so, helm unittest will run a standard helm render
-against the values.yaml in your specified directory.
-
+* Uses
+  * Tests / are a parameterization of a single test
+    * *Example:* Different environments `env = dev | staging | prod`
+* == write tests as a helm chart
+  * `helm unittest --chart-tests-path pathToTemplatedTestSuites ...`
+    * `pathToTemplatedTestSuites` != other tests path
+  * allows
+    * creating multiple suites | 1! template file
+      * suite name must be provided
+* Add helm ignore rule `*/__snapshot__/*`
+  * Otherwise, subsequent runs will try to render those snapshots
+* Typical structure
 ```
 /my-chart
   /tests-chart
@@ -129,22 +138,12 @@ against the values.yaml in your specified directory.
   /templates
     /actual_template.yaml
 ```
-
-In the above example file structure, you would maintain a helm chart that will render out against the Chart.yaml
-that as provided and the values.yaml. With rendered charts, any test suite that is generated is automatically ran
-we do not look for a file postfix or glob.
-
-**Note:** since you can create multiple suites in a single template file, you must provide the suite name, since we can no longer use the test suite file name meaningfully.
-
-**Note 2:** since you can be running against subcharts and multiple charts, you need to make sure that you do not designate your `--chart-tests-path` to be the same folder as your other tests. This is because we will try to render those non-helm test folders and fail during the unit test.
-
-**Note 3:** for snapshot tests, you will need to provide a helm ignore that ignores `*/__snapshot__/*`. Otherwise, subsequent runs will try to render those snapshots.
-
-The command for the above chart and test configuration would be:
+Command to run
 
 ```shell
 helm unittest --chart-tests-path tests-chart my-chart
 ```
+* _Example:_ Check 'test/data/v3/with-helm-tests'
 
 ## Usage
 
