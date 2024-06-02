@@ -191,13 +191,18 @@ $ helm unittest [flags] chartPath [...]
 ```
 
 
-### DocumentSelector
+### `documentSelector`
 
-The test job or assertion can also specify a documentSelector rather than a documentIndex. Note that the documentSelector will always override a documentIndex if a match is found. This field is particularly useful when helm produces multiple templates and the order is not always guaranteed.
+* Available for
+  * test job &
+  * assertion
+* rules
+  * if `documentSelector` & `documentIndex` match -> `documentSelector` takes precedence
+* uses
+  * multiple templates & 
+  * order NOT always guaranteed
+* Check [DOCUMENT.md](./DOCUMENT.md)
 
-The `path` in the documentSelector has Yaml JsonPath Support, using JsonPath expressions it is possible to filter on multiple fields.
-
-The `value` in the documentSelector can validate complete yaml objects.
 
 ```yaml
 ...
@@ -220,9 +225,9 @@ tests:
           value: my-deploy
 ```
 
-## Example
+## Examples
 
-Check [`test/data/v3/basic/`](./test/data/v3/basic) for some basic use cases of a simple chart.
+* Check [`test/data/v3/`](./test/data/v3/basic)
 
 ## Snapshot Testing
 

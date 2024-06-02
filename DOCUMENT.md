@@ -142,7 +142,7 @@ tests:
 * == base unit of testing
   * allows
     * if you run a test job -> 
-      * chart is **rendered** (?) and
+      * chart is **rendered** (-- `helm unittest -d true ...` --) and
       * validated -- against -- assertions defined in the test 
 
 ```yaml
@@ -191,8 +191,16 @@ tests:
 - **documentIndex**: *int, optional*. The index of rendered documents (divided by `---`) to be tested, default to -1, which results in asserting all documents (see Assertion). Generally you can ignored this field if the template file render only one document.
 
 - **documentSelector**: *DocumentSelector, optional*. The path of the key to be match and the match value to assert. Using this information, helm-unittest will automatically discover the documentIndex. Generally you can ignored this field if the template file render only one document.
-  - **path**: *string*. The `documentSelector` path to assert.
-  - **value**: *any*. The expected value.
+  - **path**:
+    - *string*.
+    - path to assert
+    - Yaml / JsonPath Support
+      - allows
+        - filtering on multiple fields
+  - **value**:
+    - *any*
+      - == complete yaml objects
+    - The expected value.
 
 - **release**: *object, optional*. Define the `{{ .Release }}` object.
   - **name**: *string, optional*. The release name, default to `"RELEASE-NAME"`.
