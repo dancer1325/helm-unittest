@@ -172,13 +172,17 @@ $ helm unittest [flags] chartPath [...]
       --chart-tests-path string the folder location relative to the chart where a helm chart to render test suites is located
 ```
 
-### Yaml JsonPath Support
+### Yaml/ JsonPath Support
 
-Now JsonPath is supported for mappings and arrays.
-This makes it possible to find items in an array, based on JsonPath.
-For more detail on the [`jsonPath`](https://github.com/vmware-labs/yaml-jsonpath#syntax) syntax.
-
-Due to the change to JsonPath, the map keys in `path` containing periods (`.`) or special characters (`/`) are now supported with the use of `""`:
+* Check [`jsonPath`](https://github.com/vmware-labs/yaml-jsonpath#syntax)
+* supported for
+  * mappings &
+  * arrays
+* allows
+  * making easier to find items in 
+    * array or
+    * map
+* _Example:_ Check 'test/data/v3/basic'
 
 ```yaml
 - equal:
@@ -186,7 +190,6 @@ Due to the change to JsonPath, the map keys in `path` containing periods (`.`) o
     value: nginx
 ```
 
-The next releases it will be possible to validate multiple paths when JsonPath result into multiple results.
 
 ### DocumentSelector
 

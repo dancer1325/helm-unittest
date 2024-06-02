@@ -12,3 +12,5 @@
   * asserts used are
     * `isSubset`
     * `lengthEqual`
+* "tests/ingress_test.yaml"
+  * YAML / JSONPath support
