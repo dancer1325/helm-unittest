@@ -1,6 +1,6 @@
 # Testing Document
 
-This document describes how to define your tests with YAML. For the plugin cli usage, please check [README](./README.md)
+This document describes how to define your tests with YAML
 
 - [Test Suite](#test-suite)
 - [Test Job](#test-job)
@@ -10,7 +10,10 @@ This document describes how to define your tests with YAML. For the plugin cli u
 
 ## Test Suite
 
-A test suite is a collection of tests with the same purpose and scope defined in one single file. The root structure of a test suite is like below:
+* Collection of tests defined in 1! file / same
+  * purpose and
+  * scope 
+* Structure
 
 ```yaml
 suite: test deploy and service
@@ -39,34 +42,108 @@ tests:
     ...
 ```
 
-- **suite**: *string, optional*. The suite name to show on test result output.
+- **suite**:
+  - *string*
+    -  optional
+  - suite name / shown on test result output
 
-- **values**: *array of string, optional*. The values files used to renders the chart, think it as the `-f, --values` options of `helm install`. The file path should be the relative path from the test suite file itself.
+- **values**:
+  - *string[]*
+    - optional
+  - Relative file path -- to the -- test suite values
+    - == (in helm commands) `helm ... -f --valueFile` 
+      - -> if you add several, the ⚠️last element takes precedence⚠️
 
-- **set**: *object of any, optional*. Set the values directly in suite file. The key is the value path with the format just like `--set` option of `helm install`, for example `image.pullPolicy`. The value is anything you want to set to the path specified by the key, which can be even an array or an object. This set will override values which are already set in the values file.
+- **set**: 
+  - *object of any*
+    - optional
+  - -- alternative to pass by -- `values`
+    - ⚠️takes precedence vs passed by `values` ⚠️
+  - == (in helm command) `helm install --set key=value`
 
-- **templates**: *array of string, recommended*. The template files scope to test in this suite. The full chart will be rendered, however only the listed templates are filtered for validation. Template files that are put in a templates sub-folder can be addressed with a linux path separator. Also the `templates/` can be omitted. Using wildcards it is possible to test multiple templates without listing them one-by-one. Partial templates (which are prefixed with and `_` or have the .tpl extension) are added automatically even if it is in a templates sub-folder, you don't need to add them.
 
-- **release**: *object, optional*. Define the `{{ .Release }}` object.
-  - **name**: *string, optional*. The release name, default to `"RELEASE-NAME"`.
-  - **namespace**: *string, optional*. The namespace which release be installed to, default to `"NAMESPACE"`.
-  - **revision**: *int, optional*. The revision of current build, default to `0`.
-  - **upgrade**: *bool, optional*. Whether the build is an upgrade, default to `false`.
+- **templates**: 
+  - *string[]*
+    - recommended
+    - relative path to the templates to test
+      - if templates are in sub-folders -> use '/' 
+      - `templates/` can be omitted
+      - `*` allows testing multiple templates / without listing them one-by-one
+  - Template files to test in this suite
+    - although full chart will be rendered 
+    - Partial templates ( == prefixed with and `_` or have the .tpl extension) are added automatically
+      - even if it is in a templates sub-folder
 
-- **capabilities**: *object, optional*. Define the `{{ .Capabilities }}` object.
-  - **majorVersion**: *int, optional*. The kubernetes major version, default to the major version which is set by helm.
-  - **minorVersion**: *int, optional*. The kubernetes minor version, default to the minor version which is set by helm.
-  - **apiVersions**: *array of string, optional*. A set of versions, default to the versionset used by the defined kubernetes version.
+- **release**:
+  - *object*  
+    - Define the `{{ .Release }}` object
+    - optional
+    - **name**
+      - *string* 
+      - optional
+        - `"RELEASE-NAME"` default one
+    - **namespace**
+      - *string*
+      - optional
+        - `"NAMESPACE"` default
+      - Namespace which release be installed to
+    - **revision**:
+      - *int*
+      - optional
+        - `0` default one
+      - Revision of current build 
+    - **upgrade**:
+      - *bool*
+      - optional
+        - `false` default one
 
-- **chart**: *object, optional*. Define the `{{ .Chart }}` object.
-  - **version**: *string, optional*. The semantic version of the chart, default to the version set in the Chart.
-  - **appVersion**: *string, optional*. The app-version of the chart, default to the app-version set in the Chart.
+- **capabilities**:
+  - *object*
+    - Define the `{{ .Capabilities }}` object
+    - optional
+      - **majorVersion**:
+        - *int*
+        - optional 
+          - major version / set by helm is the default one 
+        - Kubernetes major version, 
+      - **minorVersion**:
+        - *int*
+        - optional
+          - minor version / set by helm is the default one 
+        - Kubernetes minor version
+      - **apiVersions**:
+        - *string[]*
+        - optional
+          - versionset / defined by kubernetes version is the default one 
+        - Set of Kubernetes versions
 
-- **tests**: *array of test job, required*. Where you define your test jobs to run, check [Test Job](#test-job).
+- **chart**:
+  - *object*
+    - Define the `{{ .Chart }}` object
+    - optional
+    - **version**:
+      - *string*
+      - optional
+        - Version / set in the Chart is the default one 
+      - Semantic version of the chart
+    - **appVersion**:
+      - *string*
+      - optional
+        - App-version / set in the Chart is the default one
+      - App-version of the chart
+
+- **tests**:
+  - *testJob[]*
+  - required
+  - Check [Test Job](#test-job)
 
 ## Test Job
 
-The test job is the base unit of testing. Your chart is **rendered each time a test job run**, and validated with assertions defined in the test. You can setup your values used to render the chart in the test job with external values files or directly in the test job definition. Below is a test job example with all of its options defined:
+* == base unit of testing
+  * allows
+    * if you run a test job -> 
+      * chart is **rendered** (?) and
+      * validated -- against -- assertions defined in the test 
 
 ```yaml
 ...
