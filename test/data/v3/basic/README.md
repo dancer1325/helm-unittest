@@ -1,5 +1,7 @@
 # How to run tests?
 * `helm unittest .`
+* `helm unittest -d true .`
+  * check in the logs, the rendering process of the manifests
 
 ## Notes
 * "/tests/configmap_test.yaml"

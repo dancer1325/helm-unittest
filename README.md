@@ -148,11 +148,12 @@ helm unittest --chart-tests-path tests-chart my-chart
 ## Usage
 
 ```
-$ helm unittest [flags] CHART [...]
+$ helm unittest [flags] chartPath [...]
 ```
-
-This renders your charts locally (without tiller) and runs tests
-defined in test suite files.
+* How does it work?
+  * Renders your charts locally &
+    * Check 'test/data/v3/basic'
+  * runs tests / defined in test suite files
 
 ### Flags
 
