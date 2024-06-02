@@ -3,6 +3,8 @@ apiVersion: "br.dev.local/v1"
 kind: BrPolicy
 metadata:
   name: {{ template "basic.fullname" . }}-backuppolicy
+{{/*  labels:*/}}
+{{/*    checkrelease: {{ .Release.Name }}*/}}
 spec:
   selector:
     matchLabels:

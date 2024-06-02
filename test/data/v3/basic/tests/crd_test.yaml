@@ -28,3 +28,9 @@ tests:
           value: my-release-basic-backuppolicy
       - hasDocuments:
           count: 1
+          # TODO: How to use proper release object
+#  - it: check release object
+#    asserts:
+#      - equal:
+#          path: metadata.labels.checkrelease
+#          value: my-release
