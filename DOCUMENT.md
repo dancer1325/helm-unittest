@@ -146,36 +146,33 @@ tests:
 ```yaml
 ...
 tests:
-  - it: should pass
+  - it: testName
     values:
-      - ./values/staging.yaml
+      - valuesFileName.yaml
     set:
-      image.pullPolicy: Always
-      resources:
-        limits:
-          memory: 128Mi
-    template: deployment.yaml
-    documentIndex: 0
+      key1: Value1
+    template: relativePathToTemplateElementsToTest.yaml
+    templates: 
+      - relativePathToTemplateElementsToTest.yaml
+    documentIndex: indexDocumentInTheTemplateToTest
     documentSelector: 
-      path: metadata.name
-      value: my-service-name    
+      path: pathToPropertyToFilterDocument
+      value: valueToGuarantee
     release:
-      name: my-release
-      namespace:
-      revision: 9
-      upgrade: true
+      name: releaseNameToTest
+      namespace: releaseNamespaceToTest
+      revision: numberOfRevision
+      upgrade: booleanIfUpgradeOrInstall
     capabilities:
-      majorVersion: 1
-      minorVersion: 12
+      majorVersion: kubernetesMajorVersion
+      minorVersion: kubernetesMinorVersion
       apiVersions:
-        - custom.api/v1
+        - kubernetesAPIVersionKindResourceToTest
     chart:
-      version: 1.0.0
-      appVersion: 1.0.0
+      version: chartVersionToTest
+      appVersion: chartAppVersionToTest
     asserts:
-      - equal:
-          path: metadata.name
-          value: my-deploy
+      - assertTypes
 ```
 
 - **it**:
