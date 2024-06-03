@@ -45,3 +45,5 @@ tests:
     asserts:
       - ...
 ```
+# Notes
+* assertType's `equal.decodeBase64` -- Check 'postgresql_secrets_test.yaml' --

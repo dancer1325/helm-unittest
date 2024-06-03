@@ -7,4 +7,4 @@ assertionTypes' failedTemplate
 * `helm template .`
   * Problems:
     * Problem1: It does NOT throw error for 'configMap.yaml'
-      * Solution: TODO:
+      * Solution: Comment 'validation.tpl' code and you get the same error as check in 'configMap_test.yaml'

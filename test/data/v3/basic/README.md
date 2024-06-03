@@ -20,6 +20,9 @@
   * `documentIndex`
 * "tests/ingress_test.yaml"
   * YAML / JSONPath support
+* "tests/notes_test.yaml"
+  * assertTypes used
+    * `equalRaw`
 * test suite completion and validation
   * via
     * [inlined schema](https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#using-inlined-schema)
@@ -29,3 +32,7 @@
           * Attempt2: `# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json`
           * Attempt3: Schemas for Intellij
           * Solution: TODO:
+* "tests/__snapshot__/*"
+  * check the snapshots -- via -- assertionTypes`s
+    * `matchSnapshot`
+    * `matchSnapshotRaw`
