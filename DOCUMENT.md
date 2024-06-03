@@ -16,30 +16,29 @@ This document describes how to define your tests with YAML
 * Structure
 
 ```yaml
-suite: test deploy and service
+suite: suiteName
 values:
-  - overallValues.yaml
+  - valuesFileName.yaml
 set:
-  image.pullPolicy: Always
+  key1: Value1
 templates:
-  - templates/deployment.yaml
-  - templates/web/service.yaml
+  - relativePathToTemplateElementsToTest.yaml
 release:
-  name: my-release
-  namespace: my-namespace
-  revision: 1
-  upgrade: true
+  name: releaseNameToTest
+  namespace: releaseNamespaceToTest
+  revision: numberOfRevision
+  upgrade: booleanIfUpgradeOrInstall
 capabilities:
-  majorVersion: 1
-  minorVersion: 10
+  majorVersion: kubernetesMajorVersion
+  minorVersion: kubernetesMinorVersion
   apiVersions:
-    - br.dev.local/v2
+    - kubernetesAPIVersionKindResourceToTest
 chart:
-  version: 1.0.0
-  appVersion: 1.0.0
+  version: chartVersionToTest
+  appVersion: chartAppVersionToTest
 tests:
-  - it: should test something
-    ...
+  - it: TestJob
+  -  ...
 ```
 
 - **suite**:
