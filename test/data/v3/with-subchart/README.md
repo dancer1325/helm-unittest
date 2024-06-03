@@ -30,6 +30,7 @@
     * existed already in `charts` directory
       * they should have been installed -- via -- `helm dependency build`
 * About tests
+  * NOT packaged 
   * `helm unittest .` to unittest these from the root chart
     * check how 'tests/postgresql_secrets_test.yaml' & 'tests/postgresql_deployment_test.yaml' are executed
 
