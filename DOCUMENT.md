@@ -179,44 +179,69 @@ tests:
           value: my-deploy
 ```
 
-- **it**: *string, recommended*. Define the name of the test with TDD style or any message you like.
+- **it**:
+  - *string*
+    - recommended
+  - Test name
 
-- **values**: *array of string, optional*. The values files used to renders the chart, think it as the `-f, --values` options of `helm install`. The file path should be the relative path from the test suite file itself. This file will override existing values set in the suite values.
+- **values**:
+  - *[]string*
+    - optional
+  - == test suite's `values`
+    - override / defined in test suite!!
 
-- **set**: *object of any, optional*. Set the values directly in suite file. The key is the value path with the format just like `--set` option of `helm install`, for example `image.pullPolicy`. The value is anything you want to set to the path specified by the key, which can be even an array or an object. This set will override values which are already set in the values file.
+- **set**:
+  - *object of any*
+    - optional
+  - == test suite's `set`
+    - override / defined in test suite!! 
 
-- **template**: *string, optional*. **templates**: *array of string, optional*. The template file(s) which render the manifest to be tested, default to the list of template file defined in `templates` of suite file, unless template is defined in the assertion(s) (check [Assertion](#assertion)).
+- **template**:
+  - *string*
+    - optional
+  - == templates BUT 1!
+- **templates**:
+  - *[]string*
+    - optional
+  - == test suite's `templates`
+    - override / defined in test suite!!
 
-- **documentIndex**: *int, optional*. The index of rendered documents (divided by `---`) to be tested, default to -1, which results in asserting all documents (see Assertion). Generally you can ignored this field if the template file render only one document.
+- **documentIndex**:
+  - *int*
+    - optional
+    - -1
+      - by default
+      - == ALL kind resources specified in template will be tested
+  - == index of rendered documents (divided by `---` / file) to be tested 
 
-- **documentSelector**: *DocumentSelector, optional*. The path of the key to be match and the match value to assert. Using this information, helm-unittest will automatically discover the documentIndex. Generally you can ignored this field if the template file render only one document.
-  - **path**:
-    - *string*.
-    - path to assert
-    - Yaml / JsonPath Support
-      - allows
-        - filtering on multiple fields
-  - **value**:
-    - *any*
-      - == complete yaml objects
-    - The expected value.
+- **documentSelector**:
+  - *DocumentSelector*
+    - -- alternative to -- `documentIndex`
+    - optional  
+      - **path**:
+        - *string*.
+        - path to assert
+        - Yaml / JsonPath Support
+          - allows
+            - filtering on multiple fields
+      - **value**:
+        - *any*
+          - == complete yaml objects
+        - The expected value.
 
-- **release**: *object, optional*. Define the `{{ .Release }}` object.
-  - **name**: *string, optional*. The release name, default to `"RELEASE-NAME"`.
-  - **namespace**: *string, optional*. The namespace which release be installed to, default to `"NAMESPACE"`.
-  - **revision**: *int, optional*. The revision of current build, default to `0`.
-  - **upgrade**: *bool, optional*. Whether the build is an upgrade, default to `false`.
+- **release**:
+  - == test suite's `release`
 
-- **capabilities**: *object, optional*. Define the `{{ .Capabilities }}` object.
-  - **majorVersion**: *int, optional*. The kubernetes major version, default to the major version which is set by helm.
-  - **minorVersion**: *int, optional*. The kubernetes minor version, default to the minor version which is set by helm.
-  - **apiVersions**: *array of string, optional*. A set of versions, default to the versionset used by the defined kubernetes version.
+- **capabilities**: 
+  - == test suite's `capabilities`
 
-- **chart**: *object, optional*. Define the `{{ .Chart }}` object.
-  - **version**: *string, optional*. The semantic version of the chart, default to the version set in the Chart.
-  - **appVersion**: *string, optional*. The app-version of the chart, default to the app-version set in the Chart.
+- **chart**: 
+  - == test suite's `chart`
 
-- **asserts**: *array of assertion, required*. The assertions to validate the rendered chart, check [Assertion](#assertion).
+- **asserts**:
+  - *assertion[]*
+    - required
+    - Check [Assertion](#assertion)
 
 ---
 

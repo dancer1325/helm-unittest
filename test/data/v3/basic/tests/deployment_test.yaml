@@ -19,6 +19,7 @@ tests:
       service.internalPort: 8080
     template: templates/deployment.yaml
     documentIndex: 0
+    #documentIndex: 1   -- Refers to the 2@ element rendered in deployment.yaml -- Other configuration -> if you uncomment, tests fail
     asserts:
       - equal:
           path: spec.template.spec.containers[?(@.name == "basic")].image
