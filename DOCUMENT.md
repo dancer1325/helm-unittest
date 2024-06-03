@@ -247,49 +247,52 @@ tests:
 
 ## Assertion
 
-Define assertions in the test job to validate the manifests rendered with values provided. The example below tests the instances' name with 2 `equal` assertion.
+* TestJob's assertions
+* allows
+  * providing values -> validate the manifests 
 
 ```yaml
-templates:
-  - deployment.yaml
-  - web/service.yaml
+...
 tests:
-  - it: should pass
+  - it: ...
     asserts:
-      - equal:
-          path: metadata.name
-          value: my-deploy
-        documentSelector: 
-          path: metadata.name
-          value: my-service-name    
-      - equal:
-          path: metadata.name
-          value: your-service
-        not: true
-        template: web/service.yaml
-        documentIndex: 0
+      - assertionType:
+          assertionTypeArguments
+        not: 
+        template: ...
+        documentIndex: ..
+        documentSelector: ...
+      - ...
 ```
 
-The assertion is defined with the assertion type as the key and its parameters as value, there can be only one assertion type key exists in assertion definition object. And there are three more options can be set at root of assertion definition:
+- **assertionType**
+  - Check [Assertion Types](#assertion-types)
+  - 1! / `asserts` 
 
-- **not**: *bool, optional*. Set to `true` to assert contrarily, default to `false`. The second assertion in the example above asserts that the service name is **NOT** *your-service*.
+- **not**: 
+  - *bool*
+    - optional
+    - `false` default
+    - if `true` ->  assert contrarily
 
-- **template**: *string, optional*. The template file which render the manifest to be asserted, default to the list of template file defined in `templates` of suite file, unless the template is in the testjob (see TestJob). For example the first assertion above with no `template` specified asserts for both `deployment.yaml` and `service.yaml` by default. If no template file specified in neither suite, testjob and assertion, the assertion returns an error and fail the test.
+- **template**:
+  - *string*
+    - optional
+  - == testJob's `template` 
+    - override the testJob's `template` & testSuite's `template`
 
-- **documentIndex**: *int, optional*. The index of rendered documents (divided by `---`) to be asserted, default to -1, which will assert all documents. Generally you can ignored this field if the template file render only one document.
+- **documentIndex**:
+  - *int*
+    - optional
+  - == testJob's `documentIndex` 
+    - override testJob's one
 
-- **documentSelector**: *DocumentSelector, optional*. The path of the key to be match and the match value to assert. Using this information, helm-unittest will automatically discover the documentIndex. Generally you can ignored this field if the template file render only one document.
-  - **path**: *string*. The `documentSelector` path to assert.
-  - **value**: *any*. The expected value.
+- **documentSelector**:
+  - *DocumentSelector*
+    - optional
+  - == testJob's `documentSelector`
+    - override testJob's one
 
-Map keys in `path` containing periods (`.`) are supported with the use of a `jsonPath` syntax:
-For more detail on the [`jsonPath`](https://github.com/vmware-labs/yaml-jsonpath#syntax) syntax.
-
-```yaml
-- equal:
-    path: metadata.annotations["kubernetes.io/ingress.class"]
-    value: nginx
-```
 
 ---
 
