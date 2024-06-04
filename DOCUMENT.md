@@ -8,6 +8,12 @@ This document describes how to define your tests with YAML
   - [Assertion Types](#assertion-types)
   - [Antonym and `not`](#antonym-and-not)
 
+```
+testSuite
+    testJobs
+        Assertions
+```
+
 ## Test Suite
 
 * Collection of tests defined in 1! file / same
